@@ -104,12 +104,13 @@ class DatabaseProxy extends SS_Database
      *
      * @param string $sql Query to run, and single parameter to callback
      * @param callable $callback Callback to execute code
+     * @param array $parameters Parameters to pass through
      * @return mixed Result of query
      */
-    protected function benchmarkQuery($sql, $callback)
+    protected function benchmarkQuery($sql, $callback, $parameters = Array())
     {
         $starttime = microtime(true);
-        $handle = parent::benchmarkQuery($sql, $callback);
+        $handle = parent::benchmarkQuery($sql, $callback, $parameters);
         $endtime = microtime(true);
         $this->queries[] = ['query' => $sql, 'duration' => round(($endtime - $starttime) * 1000.0, 2)];
         return $handle;
